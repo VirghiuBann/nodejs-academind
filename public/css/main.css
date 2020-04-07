@@ -42,8 +42,10 @@ form {
 
 .main-header__nav {
     height: 100%;
-    display: none;
+    width: 100%;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .main-header__item-list {
@@ -61,6 +63,14 @@ form {
 .main-header__item a {
     text-decoration: none;
     color: white;
+}
+.main-header__item button {
+    font-family: inherit;
+    border: 0;
+    padding: 0;
+    background-color: inherit;
+    color: white;
+    font-size: inherit;
 }
 
 .main-header__item a:hover,
