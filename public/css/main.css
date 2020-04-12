@@ -233,6 +233,22 @@ form {
     color: white;
 }
 
+.user-message {
+    margin: auto;
+    width: 90%;
+    border: 1px solid rgb(111, 0, 255);
+    padding: 0.5rem;
+    border-radius: 3px;
+    background: rgb(206, 194, 221);
+    text-align: center;
+}
+
+.user-message--error {
+    border-color: red;
+    background: rgb(212, 171, 171);
+    color: red;
+}
+
 @media (min-width: 768px) {
     .main-header__nav {
         display: flex;
