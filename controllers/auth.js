@@ -18,7 +18,7 @@ exports.postLogin = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     const errors = validationResult(req);
-    console.log(errors);
+
     if (!errors.isEmpty()) {
         return res.status(422).render('auth/login', {
             pageTitle: 'Login',
@@ -31,6 +31,7 @@ exports.postLogin = (req, res, next) => {
             validationErrors: errors.array(),
         });
     }
+
     User.findOne({ email: email })
         .then((user) => {
             if (!user) {
@@ -52,7 +53,9 @@ exports.postLogin = (req, res, next) => {
             });
         })
         .catch((err) => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
@@ -122,7 +125,9 @@ exports.postSignup = (req, res, next) => {
             //     });
         })
         .catch((err) => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 const crypto = require('crypto');
@@ -173,7 +178,9 @@ exports.postReset = (req, res, next) => {
                 // });
             })
             .catch((err) => {
-                console.log(err);
+                const error = new Error(err);
+                error.httpStatusCode = 500;
+                return next(error);
             });
     });
 };
@@ -195,7 +202,9 @@ exports.getNewPassword = (req, res, next) => {
             });
         })
         .catch((err) => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
@@ -224,6 +233,8 @@ exports.postNewPassword = (req, res, next) => {
             res.redirect('/login');
         })
         .catch((err) => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
