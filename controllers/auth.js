@@ -9,6 +9,8 @@ exports.getLogin = (req, res, next) => {
         pageTitle: 'Login',
         path: '/login',
         errorMessage: message.length > 0 ? message : null,
+        oldInput: {},
+        validationErrors: [],
     });
 };
 
@@ -22,6 +24,11 @@ exports.postLogin = (req, res, next) => {
             pageTitle: 'Login',
             path: '/login',
             errorMessage: errors.array()[0].msg,
+            oldInput: {
+                email: email,
+                password: password,
+            },
+            validationErrors: errors.array(),
         });
     }
     User.findOne({ email: email })
@@ -56,13 +63,19 @@ exports.getSignup = (req, res, next) => {
         pageTitle: 'Signup',
         isAuthenticated: false,
         errorMessage: message.length > 0 ? message : null,
+        oldInput: {
+            email: '',
+            password: '',
+            passwordConfirm: '',
+        },
+        validationErrors: [],
     });
 };
 
 exports.postSignup = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
-    const confirmPassword = req.body.confirmPassword;
+    const passwordConfirm = req.body.passwordConfirm;
     const errors = validationResult(req);
     console.log(errors);
     if (!errors.isEmpty()) {
@@ -70,6 +83,12 @@ exports.postSignup = (req, res, next) => {
             pageTitle: 'SignUp',
             path: '/signup',
             errorMessage: errors.array()[0].msg,
+            oldInput: {
+                email: email,
+                password: password,
+                passwordConfirm: passwordConfirm,
+            },
+            validationErrors: errors.array(),
         });
     }
 
